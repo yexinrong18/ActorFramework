@@ -85,9 +85,18 @@ namespace ActorFramework
         /// <summary>
         /// Actor停止
         /// </summary>
-        internal void StopActor()
+        internal Error StopActor()
         {
             _working = false;
+            return Error.NoError;
+        }
+
+        protected virtual void handleError(Error error)
+        {
+            if (error.IsError)
+            {
+                Console.WriteLine(error.Code + error.Message);
+            }
         }
     }
 }

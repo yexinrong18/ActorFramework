@@ -10,7 +10,7 @@ namespace ActorFramework.Messages
         /// <summary>
         /// 消息处理逻辑
         /// </summary>
-        public abstract void DoWork(Actor actor);
+        public abstract Error DoWork(Actor actor);
 
         /// <summary>
         /// 发送消息
@@ -42,9 +42,10 @@ namespace ActorFramework.Messages
         /// <returns>回复消息的内容</returns>
         public abstract T DoCore(Actor actor);
 
-        public override void DoWork(Actor actor)
+        public override Error DoWork(Actor actor)
         {
             ReplyMessageQueue.TryAdd(DoCore(actor));
+            return Error.NoError;
         }
 
         /// <summary>
@@ -74,9 +75,9 @@ namespace ActorFramework.Messages
     /// </summary>
     public class LastAskMessage : Message
     {
-        public override void DoWork(Actor actor)
+        public override Error DoWork(Actor actor)
         {
-
+            return Error.NoError;
         }
     }
 }

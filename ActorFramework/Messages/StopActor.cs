@@ -11,9 +11,9 @@ namespace ActorFramework.Messages
     /// </summary>
     public class StopActor : Message
     {
-        public override void DoWork(Actor actor)
+        public override Error DoWork(Actor actor)
         {
-            actor.StopActor();
+            return actor.StopActor();
         }
 
         public static void SendStopMsg(MessageEnqueue queue, bool Emergency = true)
