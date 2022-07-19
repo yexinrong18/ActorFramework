@@ -58,7 +58,7 @@ namespace ActorFramework
             {
                 while (_working)
                 {
-                    _selfQueue.PriorityDequeue()?.DoWork(this);
+                    _selfQueue.PriorityDequeue()?.DoWork(this).Handle();
                 }
             }, TaskCreationOptions.LongRunning).ContinueWith(t =>
             {
@@ -89,14 +89,6 @@ namespace ActorFramework
         {
             _working = false;
             return Error.NoError;
-        }
-
-        protected virtual void handleError(Error error)
-        {
-            if (error.IsError)
-            {
-                Console.WriteLine(error.Code + error.Message);
-            }
         }
     }
 }

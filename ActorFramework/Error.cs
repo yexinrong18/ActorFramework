@@ -22,6 +22,17 @@ namespace ActorFramework
         }
 
         /// <summary>
+        /// 错误处理
+        /// </summary>
+        public void Handle()
+        {
+            if (IsError)
+            {
+                Console.WriteLine(Code + Message);
+            }
+        }
+
+        /// <summary>
         /// 创建try catch到的错误
         /// </summary>
         /// <param name="message"></param>
