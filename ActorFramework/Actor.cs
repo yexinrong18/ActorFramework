@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
 
 namespace ActorFramework
 {
@@ -58,7 +53,7 @@ namespace ActorFramework
             {
                 while (_working)
                 {
-                    _selfQueue.PriorityDequeue()?.DoWork(this).Handle();
+                    ErrorHandler(_selfQueue.PriorityDequeue()?.DoWork(this));
                 }
             }, TaskCreationOptions.LongRunning).ContinueWith(t =>
             {
@@ -77,10 +72,26 @@ namespace ActorFramework
             return ReadSelfEnqueue();
         }
 
+        /// <summary>
+        /// 读取自身的队列
+        /// </summary>
+        /// <returns></returns>
         public MessageEnqueue ReadSelfEnqueue()
         {
             return new MessageEnqueue(_selfQueue);
         }        
+
+        /// <summary>
+        /// 错误处理
+        /// </summary>
+        /// <param name="err"></param>
+        public virtual void ErrorHandler(Error? err)
+        {
+            if (err != null && err.IsError)
+            {
+                Console.WriteLine("error code = " + err.Code + ", " + err.Message);
+            }
+        }
 
         /// <summary>
         /// Actor停止

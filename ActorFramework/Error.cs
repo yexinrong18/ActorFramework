@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ActorFramework
+﻿namespace ActorFramework
 {
     public class Error
     {
@@ -19,17 +13,6 @@ namespace ActorFramework
             IsError = true;
             Code = code;
             Message = message;
-        }
-
-        /// <summary>
-        /// 错误处理
-        /// </summary>
-        public void Handle()
-        {
-            if (IsError)
-            {
-                Console.WriteLine(Code + Message);
-            }
         }
 
         /// <summary>
