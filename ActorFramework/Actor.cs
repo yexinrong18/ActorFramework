@@ -10,20 +10,17 @@ namespace ActorFramework
         /// <summary>
         /// 启动本Actor的Actor的消息队列
         /// </summary>
-        protected MessagePriorityQueue _CallerQueue = new MessagePriorityQueue();
+        private MessagePriorityQueue _CallerQueue = new MessagePriorityQueue();
 
         /// <summary>
         /// 本Actor的消息队列
         /// </summary>
-        protected MessagePriorityQueue _selfQueue = new MessagePriorityQueue();
+        private MessagePriorityQueue _selfQueue = new MessagePriorityQueue();
 
         /// <summary>
         /// Actor在工作标记
         /// </summary>
-        protected bool _working = false;
-
-        protected BlockingCollection<bool> _pauseSyncQueue = new BlockingCollection<bool>();
-        protected BlockingCollection<bool> _resumeSyncQueue = new BlockingCollection<bool>();
+        private bool _working = false;
 
         /// <summary>
         /// 析构函数中停止线程
@@ -80,6 +77,23 @@ namespace ActorFramework
         {
             return new MessageEnqueue(_selfQueue);
         }        
+
+        /// <summary>
+        /// 清空自身队列里面的消息
+        /// </summary>
+        protected void FlushSelfEnqueue()
+        {
+            _selfQueue.Flush();
+        }
+
+        /// <summary>
+        /// 读取调用者的队列
+        /// </summary>
+        /// <returns></returns>
+        public MessageEnqueue ReadCallerQueue()
+        {
+            return new MessageEnqueue(_CallerQueue);
+        }
 
         /// <summary>
         /// 错误处理

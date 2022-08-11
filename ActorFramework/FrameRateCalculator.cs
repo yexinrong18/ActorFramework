@@ -25,7 +25,7 @@ namespace ActorFramework
         /// <summary>
         /// 设定事件更新一次帧率的事件
         /// </summary>
-        public EventHandler<double> RefreshFrameRateEventHandler { get; set; }
+        public BeginInvokeEventHandler<double> RefreshFrameRateEventHandler { get; set; } = new BeginInvokeEventHandler<double>();
 
         /// <summary>
         /// 
