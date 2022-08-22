@@ -99,7 +99,7 @@ namespace ActorFramework
         /// 错误处理
         /// </summary>
         /// <param name="err"></param>
-        public virtual void ErrorHandler(Error? err)
+        protected virtual void ErrorHandler(Error? err)
         {
             if (err != null && err.IsError)
             {
